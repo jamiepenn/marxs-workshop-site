@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Commune — Marx's Workshop</title>
+  <meta name="description" content="Marx's Workshop autonomous commerce commune — multi-agent digital shop dashboard" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=3.6.0" />
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="brand-star">★</span>
+    <div>
+      <span class="brand-title">The Commune</span>
+      <span class="brand-ver" id="brand-ver">Marx's Workshop · loading...</span>
+    </div>
+  </div>
+  <div class="topbar-kpis">
+    <div class="kpi"><span class="kpi-l">TODAY</span><span class="kpi-v rose private-data" id="m-today">$0.00</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-l">MONTH</span><span class="kpi-v gold private-data" id="m-month">$0.00</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi rent-kpi">
+      <span class="kpi-l">RENT</span>
+      <div class="rent-bar-wrap private-data"><div class="rent-bar-fill" id="rent-bar-fill" style="width:0%"></div></div>
+      <span class="kpi-v gold private-data" id="m-rent">0%</span>
+    </div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-l">LIVE</span><span class="kpi-v sky" id="m-live">0</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-l">APPROVALS</span><span class="kpi-v lavender" id="m-queue">0</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-l">ROI</span><span class="kpi-v sage private-data" id="m-roi">0%</span></div>
+    <div class="kpi-sep"></div>
+    <div class="kpi"><span class="kpi-l">INVESTED</span><span class="kpi-v coral private-data" id="m-invested">$0</span></div>
+  </div>
+  <div class="topbar-quote" id="topbar-quote"></div>
+  <div class="topbar-right">
+    <button class="privacy-btn" id="privacy-toggle" onclick="togglePrivacy()" title="Toggle stats visibility">👁 Visible</button>
+    <div class="status-chip"><span class="sdot" id="sdot"></span><span id="slbl">Offline</span></div>
+    <span class="topbar-clock" id="clock"></span>
+  </div>
+</header>
+
+<!-- FULL SCREEN CANVAS MAP -->
+<canvas id="world-canvas"></canvas>
+
+<!-- PANEL STACK — up to 4 open simultaneously, stacked right -->
+<div class="panel-stack" id="panel-stack"></div>
+
+<!-- ARCHIVE OVERLAY -->
+<div class="full-overlay" id="archive-overlay" style="display:none">
+  <div class="ov-header">
+    <span class="ov-title">📜 The Manifesto — Knowledge Graph</span>
+    <div class="ov-tabs" id="archive-tabs">
+      <button class="otab active" data-cat="">ALL</button>
+      <button class="otab" data-cat="rule">RULES</button>
+      <button class="otab" data-cat="preference">PREFS</button>
+      <button class="otab" data-cat="feedback">FEEDBACK</button>
+      <button class="otab" data-cat="note">NOTES</button>
+    </div>
+    <button class="ov-add" id="ao-add">+ Add Node</button>
+    <button class="ov-close" id="ao-close">✕</button>
+  </div>
+  <div class="ov-body">
+    <div class="graph-wrap" id="ao-graph"></div>
+    <div class="graph-sb">
+      <div class="gsb-title" id="ao-node-title">Select a node</div>
+      <div class="gsb-content" id="ao-node-content">Click any node to read it.</div>
+      <div class="gsb-meta" id="ao-stats"></div>
+      <button class="add-node-btn" id="ao-add-sb">+ Add to Manifesto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ARCHIVE MODAL -->
+<div class="modal-overlay" id="archive-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-hdr"><span>📜 Add to The Manifesto</span><button class="dp-close" id="am-close">✕</button></div>
+    <div class="modal-body">
+      <label>Type</label>
+      <select id="am-cat">
+        <option value="rule">★ Rule — Marx must always follow</option>
+        <option value="preference">♡ Preference — What Jamie likes</option>
+        <option value="feedback">◎ Feedback — On a product/niche</option>
+        <option value="note">◈ Note — General memory</option>
+      </select>
+      <label>Content</label>
+      <textarea id="am-content" placeholder="Write the rule or memory…"></textarea>
+      <label>Tags</label>
+      <input type="text" id="am-tags" placeholder="etsy, design, strategy" />
+    </div>
+    <div class="modal-footer">
+      <button class="map-btn secondary" id="am-cancel">Cancel</button>
+      <button class="map-btn primary" id="am-save">★ Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Agent Profile Modal -->
+<div id="agent-profile-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;backdrop-filter:blur(4px)"></div>
+
+<!-- TOAST CONTAINER (was missing!) -->
+<div id="toast-wrap"></div>
+
+<style>
+.ap-card{background:#1a1208;border:2px solid #8b6914;border-radius:12px;padding:24px;max-width:420px;width:90%;max-height:85vh;overflow-y:auto;position:relative;color:#f0e8c0;font-family:'Courier New',monospace}
+.ap-close{position:absolute;top:12px;right:12px;background:#c0392b;border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;font-weight:bold}
+.ap-header{display:flex;gap:14px;align-items:flex-start;border-bottom:2px solid;padding-bottom:14px;margin-bottom:14px}
+.ap-avatar{width:54px;height:54px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;flex-shrink:0;font-family:Georgia,serif}
+.ap-name{font-size:16px;font-weight:700;color:#f0e8c0;margin-bottom:3px}
+.ap-role{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:2px}
+.ap-class{font-size:11px;color:#a89060;margin-bottom:3px}
+.ap-based{font-size:10px;color:#7a6844}
+.ap-bio{font-size:11px;line-height:1.7;color:#d0c8a0;margin-bottom:12px;border-left:3px solid #8b6914;padding-left:10px}
+.ap-quote{font-size:10px;color:#9a8860;font-style:italic;margin-bottom:14px;text-align:center;padding:8px;background:rgba(255,255,255,0.04);border-radius:6px}
+.ap-section-title{font-size:10px;font-weight:700;letter-spacing:2px;color:#8b6914;text-transform:uppercase;margin:12px 0 6px}
+.ap-stats{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
+.ap-stat{display:flex;align-items:center;gap:8px;font-size:10px}
+.ap-stat-lbl{width:90px;color:#a89060;text-transform:capitalize;flex-shrink:0}
+.ap-bar{flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.ap-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.ap-stat-val{width:24px;text-align:right;color:#f0e8c0;font-weight:700}
+.ap-duties{margin:0 0 12px;padding-left:18px;font-size:11px;color:#d0c8a0;line-height:1.8}
+.ap-api{font-size:10px;color:#7a6844;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:4px}
+.ap-api code{color:#f0c040;background:rgba(255,200,50,0.1);padding:2px 5px;border-radius:3px}
+</style>
+
+<script>
+// Fetch version dynamically so it always matches package.json — automatic on every server restart
+fetch('/api/version').then(r=>r.json()).then(d=>{
+  const el = document.getElementById('brand-ver');
+  if (el) el.textContent = `Marx's Workshop · v${d.version} (b${d.build})`;
+  // Also bust cache on scripts by storing the version
+  window._workshopVersion = d.version;
+}).catch(()=>{});
+</script>
+<script src="world.js?v=4.0"></script>
+<script src="panels.js?v=4.0"></script>
+<script src="app.js?v=4.0"></script>
+<!-- Privacy/shutdown toggles are defined in app.js (localStorage-persisted) -->
+</body>
+</html>
