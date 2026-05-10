@@ -1,150 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Commune — Marx's Workshop</title>
-  <meta name="description" content="Marx's Workshop autonomous commerce commune — multi-agent digital shop dashboard" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-  <link rel="stylesheet" href="style.css?v=3.6.0" />
-  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marx's Workshop — Unique Gifts for Every Profession</title>
+  <meta name="description" content="Handcrafted print-on-demand gifts for nurses, teachers, engineers, and every hardworking professional. Mugs, shirts, and more — bold designs that people actually want.">
+  <meta name="keywords" content="funny nurse gift, teacher gift mug, engineer shirt, occupational therapist gift, funny coffee mug, unique profession gifts, etsy gifts">
+  <meta property="og:title" content="Marx's Workshop — Unique Gifts for Every Profession">
+  <meta property="og:description" content="Bold, readable designs. Fast shipping. Real gifts for real people.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #1a1a2e;
+      --cream:   #fdf6ec;
+      --gold:    #c8952a;
+      --rust:    #c0392b;
+      --sage:    #2d4a3e;
+      --light:   #f8f4ee;
+      --border:  #e8ddd0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--ink);
+      color: white;
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Merriweather', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+    }
+    .logo span { color: var(--gold); }
+    nav a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--ink) 0%, #16213e 50%, var(--sage) 100%);
+      color: white;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(200,149,42,0.15) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200,149,42,0.2);
+      border: 1px solid rgba(200,149,42,0.4);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 0.5rem;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,149,42,0.3); }
+    .hero-cta.secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .hero-cta.secondary:hover { border-color: white; box-shadow: none; }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--sage);
+      color: white;
+      padding: 0.85rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .trust-strip span { margin: 0 1.5rem; opacity: 0.9; }
+    .trust-strip span::before { margin-right: 0.4rem; }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      margin-bottom: 0.5rem;
+    }
+    .section-sub {
+      color: #666;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    /* ── NICHE GRID ── */
+    .niche-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .niche-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .niche-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--gold); }
+    .niche-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    .niche-label { font-weight: 700; font-size: 0.95rem; }
+    .niche-sub { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
+
+    /* ── WHY US ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .why-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.9rem; color: #555; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--ink), var(--sage));
+      color: white;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .cta-band h2 { color: white; font-family: 'Merriweather', serif; }
+    .cta-band p { opacity: 0.85; margin: 1rem auto 2rem; max-width: 480px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; gap: 0.75rem; text-align: center; }
+      nav a { margin: 0 0.75rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<header class="topbar">
-  <div class="topbar-brand">
-    <span class="brand-star">★</span>
-    <div>
-      <span class="brand-title">The Commune</span>
-      <span class="brand-ver" id="brand-ver">Marx's Workshop · loading...</span>
-    </div>
-  </div>
-  <div class="topbar-kpis">
-    <div class="kpi"><span class="kpi-l">TODAY</span><span class="kpi-v rose private-data" id="m-today">$0.00</span></div>
-    <div class="kpi-sep"></div>
-    <div class="kpi"><span class="kpi-l">MONTH</span><span class="kpi-v gold private-data" id="m-month">$0.00</span></div>
-    <div class="kpi-sep"></div>
-    <div class="kpi rent-kpi">
-      <span class="kpi-l">RENT</span>
-      <div class="rent-bar-wrap private-data"><div class="rent-bar-fill" id="rent-bar-fill" style="width:0%"></div></div>
-      <span class="kpi-v gold private-data" id="m-rent">0%</span>
-    </div>
-    <div class="kpi-sep"></div>
-    <div class="kpi"><span class="kpi-l">LIVE</span><span class="kpi-v sky" id="m-live">0</span></div>
-    <div class="kpi-sep"></div>
-    <div class="kpi"><span class="kpi-l">APPROVALS</span><span class="kpi-v lavender" id="m-queue">0</span></div>
-    <div class="kpi-sep"></div>
-    <div class="kpi"><span class="kpi-l">ROI</span><span class="kpi-v sage private-data" id="m-roi">0%</span></div>
-    <div class="kpi-sep"></div>
-    <div class="kpi"><span class="kpi-l">INVESTED</span><span class="kpi-v coral private-data" id="m-invested">$0</span></div>
-  </div>
-  <div class="topbar-quote" id="topbar-quote"></div>
-  <div class="topbar-right">
-    <button class="privacy-btn" id="privacy-toggle" onclick="togglePrivacy()" title="Toggle stats visibility">👁 Visible</button>
-    <div class="status-chip"><span class="sdot" id="sdot"></span><span id="slbl">Offline</span></div>
-    <span class="topbar-clock" id="clock"></span>
-  </div>
+<header>
+  <div class="logo">Marx's <span>Workshop</span></div>
+  <nav>
+    <a href="https://www.etsy.com/shop/65929072" target="_blank" rel="noopener">Shop Etsy</a>
+    <a href="#niches">Browse Gifts</a>
+    <a href="#why">Why Us</a>
+  </nav>
 </header>
 
-<!-- FULL SCREEN CANVAS MAP -->
-<canvas id="world-canvas"></canvas>
+<section class="hero" style="max-width:100%;padding-top:5rem;padding-bottom:4rem;">
+  <div class="hero-badge">⭐ Bold Designs. Real Gifts.</div>
+  <h1>Gifts for the People<br>Who <em>Actually</em> Do the Work</h1>
+  <p>Nurses, teachers, engineers, tradespeople — everyone who earns their coffee deserves a mug that proves it.</p>
+  <a href="https://www.etsy.com/shop/65929072" class="hero-cta" target="_blank" rel="noopener">
+    🛒 Shop on Etsy
+  </a>
+  <a href="#niches" class="hero-cta secondary">Browse by Profession</a>
+</section>
 
-<!-- PANEL STACK — up to 4 open simultaneously, stacked right -->
-<div class="panel-stack" id="panel-stack"></div>
-
-<!-- ARCHIVE OVERLAY -->
-<div class="full-overlay" id="archive-overlay" style="display:none">
-  <div class="ov-header">
-    <span class="ov-title">📜 The Manifesto — Knowledge Graph</span>
-    <div class="ov-tabs" id="archive-tabs">
-      <button class="otab active" data-cat="">ALL</button>
-      <button class="otab" data-cat="rule">RULES</button>
-      <button class="otab" data-cat="preference">PREFS</button>
-      <button class="otab" data-cat="feedback">FEEDBACK</button>
-      <button class="otab" data-cat="note">NOTES</button>
-    </div>
-    <button class="ov-add" id="ao-add">+ Add Node</button>
-    <button class="ov-close" id="ao-close">✕</button>
-  </div>
-  <div class="ov-body">
-    <div class="graph-wrap" id="ao-graph"></div>
-    <div class="graph-sb">
-      <div class="gsb-title" id="ao-node-title">Select a node</div>
-      <div class="gsb-content" id="ao-node-content">Click any node to read it.</div>
-      <div class="gsb-meta" id="ao-stats"></div>
-      <button class="add-node-btn" id="ao-add-sb">+ Add to Manifesto</button>
-    </div>
-  </div>
+<div class="trust-strip">
+  <span>✓ Ships in 3-5 days</span>
+  <span>✓ Bold readable designs</span>
+  <span>✓ 30-day quality guarantee</span>
+  <span>✓ 100+ profession niches</span>
 </div>
 
-<!-- ADD ARCHIVE MODAL -->
-<div class="modal-overlay" id="archive-modal" style="display:none">
-  <div class="modal">
-    <div class="modal-hdr"><span>📜 Add to The Manifesto</span><button class="dp-close" id="am-close">✕</button></div>
-    <div class="modal-body">
-      <label>Type</label>
-      <select id="am-cat">
-        <option value="rule">★ Rule — Marx must always follow</option>
-        <option value="preference">♡ Preference — What Jamie likes</option>
-        <option value="feedback">◎ Feedback — On a product/niche</option>
-        <option value="note">◈ Note — General memory</option>
-      </select>
-      <label>Content</label>
-      <textarea id="am-content" placeholder="Write the rule or memory…"></textarea>
-      <label>Tags</label>
-      <input type="text" id="am-tags" placeholder="etsy, design, strategy" />
-    </div>
-    <div class="modal-footer">
-      <button class="map-btn secondary" id="am-cancel">Cancel</button>
-      <button class="map-btn primary" id="am-save">★ Save</button>
+<section id="niches">
+  <h2>Shop by Profession</h2>
+  <p class="section-sub">Find the perfect gift for the hardworking person in your life.</p>
+  <div class="niche-grid">
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">🏥</span>
+      <div class="niche-label">Nurses & Healthcare</div>
+      <div class="niche-sub">RN, CNA, phlebotomist, EMT</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">📚</span>
+      <div class="niche-label">Teachers & Educators</div>
+      <div class="niche-sub">Elementary, high school, special ed</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">⚙️</span>
+      <div class="niche-label">Engineers & Trades</div>
+      <div class="niche-sub">Linemen, electricians, welders</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">🐾</span>
+      <div class="niche-label">Animal Care</div>
+      <div class="niche-sub">Vet techs, groomers, shelter workers</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">💊</span>
+      <div class="niche-label">Pharmacy & Lab</div>
+      <div class="niche-sub">Pharmacists, lab techs, radiology</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">🏋️</span>
+      <div class="niche-label">Physical Therapy & Rehab</div>
+      <div class="niche-sub">PTs, OTs, speech therapists</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">🔧</span>
+      <div class="niche-label">Maintenance & Custodial</div>
+      <div class="niche-sub">Custodians, HVAC, plumbers</div>
+    </a>
+    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+      <span class="niche-emoji">🎉</span>
+      <div class="niche-label">All Professions →</div>
+      <div class="niche-sub">Browse the full collection</div>
+    </a>
+  </div>
+</section>
+
+<section id="why" style="background:var(--light);border-radius:16px;max-width:100%;padding:4rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <h2>Why Marx's Workshop?</h2>
+    <p class="section-sub">We don't do generic. Every design is made to make someone laugh, feel seen, or both.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🔍</div>
+        <h3>Actually Readable</h3>
+        <p>Every design is tested at thumbnail size. If you can't read it on a phone, we don't sell it.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎁</div>
+        <h3>Perfect for Gifting</h3>
+        <p>Our best-sellers are bought as gifts. We design for the moment of unwrapping, not just the shelf.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <h3>Fast & Reliable</h3>
+        <p>Ships in 3-5 business days. Premium print quality that holds up after dozens of washes.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✍️</div>
+        <h3>Real Words. Real Laughs.</h3>
+        <p>No gibberish. No filler. Every phrase is proofreaded by a human (and a very strict AI editor).</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Agent Profile Modal -->
-<div id="agent-profile-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;backdrop-filter:blur(4px)"></div>
+<section>
+  <div class="cta-band">
+    <h2>Ready to Find the Perfect Gift?</h2>
+    <p>Browse hundreds of profession-specific designs. Something bold and funny for everyone who earns their coffee.</p>
+    <a href="https://www.etsy.com/shop/65929072" class="hero-cta" target="_blank" rel="noopener">
+      🛒 Visit Our Etsy Shop
+    </a>
+  </div>
+</section>
 
-<!-- TOAST CONTAINER (was missing!) -->
-<div id="toast-wrap"></div>
+<footer>
+  <p>&copy; 2026 Marx's Workshop. Made with ☕ and permanent revolution.</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://www.etsy.com/shop/65929072" target="_blank" rel="noopener">Etsy Shop</a> ·
+    <a href="https://marxsworkshop.carrd.co" target="_blank" rel="noopener">Website</a>
+  </p>
+</footer>
 
-<style>
-.ap-card{background:#1a1208;border:2px solid #8b6914;border-radius:12px;padding:24px;max-width:420px;width:90%;max-height:85vh;overflow-y:auto;position:relative;color:#f0e8c0;font-family:'Courier New',monospace}
-.ap-close{position:absolute;top:12px;right:12px;background:#c0392b;border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;font-weight:bold}
-.ap-header{display:flex;gap:14px;align-items:flex-start;border-bottom:2px solid;padding-bottom:14px;margin-bottom:14px}
-.ap-avatar{width:54px;height:54px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;flex-shrink:0;font-family:Georgia,serif}
-.ap-name{font-size:16px;font-weight:700;color:#f0e8c0;margin-bottom:3px}
-.ap-role{font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:2px}
-.ap-class{font-size:11px;color:#a89060;margin-bottom:3px}
-.ap-based{font-size:10px;color:#7a6844}
-.ap-bio{font-size:11px;line-height:1.7;color:#d0c8a0;margin-bottom:12px;border-left:3px solid #8b6914;padding-left:10px}
-.ap-quote{font-size:10px;color:#9a8860;font-style:italic;margin-bottom:14px;text-align:center;padding:8px;background:rgba(255,255,255,0.04);border-radius:6px}
-.ap-section-title{font-size:10px;font-weight:700;letter-spacing:2px;color:#8b6914;text-transform:uppercase;margin:12px 0 6px}
-.ap-stats{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
-.ap-stat{display:flex;align-items:center;gap:8px;font-size:10px}
-.ap-stat-lbl{width:90px;color:#a89060;text-transform:capitalize;flex-shrink:0}
-.ap-bar{flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
-.ap-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
-.ap-stat-val{width:24px;text-align:right;color:#f0e8c0;font-weight:700}
-.ap-duties{margin:0 0 12px;padding-left:18px;font-size:11px;color:#d0c8a0;line-height:1.8}
-.ap-api{font-size:10px;color:#7a6844;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:4px}
-.ap-api code{color:#f0c040;background:rgba(255,200,50,0.1);padding:2px 5px;border-radius:3px}
-</style>
-
-<script>
-// Fetch version dynamically so it always matches package.json — automatic on every server restart
-fetch('/api/version').then(r=>r.json()).then(d=>{
-  const el = document.getElementById('brand-ver');
-  if (el) el.textContent = `Marx's Workshop · v${d.version} (b${d.build})`;
-  // Also bust cache on scripts by storing the version
-  window._workshopVersion = d.version;
-}).catch(()=>{});
-</script>
-<script src="world.js?v=4.0"></script>
-<script src="panels.js?v=4.0"></script>
-<script src="app.js?v=4.0"></script>
-<!-- Privacy/shutdown toggles are defined in app.js (localStorage-persisted) -->
 </body>
 </html>
