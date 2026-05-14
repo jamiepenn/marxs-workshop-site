@@ -202,6 +202,34 @@
     .cta-band h2 { color: white; font-family: 'Merriweather', serif; }
     .cta-band p { opacity: 0.85; margin: 1rem auto 2rem; max-width: 480px; }
 
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--cream);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .newsletter h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .newsletter p { color: #666; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .nl-form { display: flex; gap: 0.5rem; max-width: 420px; margin: 0 auto; }
+    .nl-form input {
+      flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border);
+      border-radius: 8px; font-family: inherit; font-size: 0.95rem;
+      background: white; color: var(--ink);
+    }
+    .nl-form input:focus { outline: 2px solid var(--gold); border-color: transparent; }
+    .nl-form button {
+      padding: 0.75rem 1.25rem; background: var(--gold); color: var(--ink);
+      border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; white-space: nowrap; transition: opacity 0.2s;
+    }
+    .nl-form button:hover { opacity: 0.88; }
+    .nl-note { font-size: 0.78rem; color: #aaa; margin-top: 0.75rem; }
+    @media (max-width: 480px) { .nl-form { flex-direction: column; } }
+
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
@@ -223,7 +251,7 @@
 <header>
   <div class="logo">Marx's <span>Workshop</span></div>
   <nav>
-    <a href="https://www.etsy.com/shop/65929072" target="_blank" rel="noopener">Shop Etsy</a>
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" target="_blank" rel="noopener">Shop Etsy</a>
     <a href="#niches">Browse Gifts</a>
     <a href="#why">Why Us</a>
   </nav>
@@ -233,7 +261,7 @@
   <div class="hero-badge">⭐ Bold Designs. Real Gifts.</div>
   <h1>Gifts for the People<br>Who <em>Actually</em> Do the Work</h1>
   <p>Nurses, teachers, engineers, tradespeople — everyone who earns their coffee deserves a mug that proves it.</p>
-  <a href="https://www.etsy.com/shop/65929072" class="hero-cta" target="_blank" rel="noopener">
+  <a href="https://www.etsy.com/shop/MarxsWorkshop" class="hero-cta" target="_blank" rel="noopener">
     🛒 Shop on Etsy
   </a>
   <a href="#niches" class="hero-cta secondary">Browse by Profession</a>
@@ -250,42 +278,42 @@
   <h2>Shop by Profession</h2>
   <p class="section-sub">Find the perfect gift for the hardworking person in your life.</p>
   <div class="niche-grid">
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">🏥</span>
       <div class="niche-label">Nurses & Healthcare</div>
       <div class="niche-sub">RN, CNA, phlebotomist, EMT</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">📚</span>
       <div class="niche-label">Teachers & Educators</div>
       <div class="niche-sub">Elementary, high school, special ed</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">⚙️</span>
       <div class="niche-label">Engineers & Trades</div>
       <div class="niche-sub">Linemen, electricians, welders</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">🐾</span>
       <div class="niche-label">Animal Care</div>
       <div class="niche-sub">Vet techs, groomers, shelter workers</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">💊</span>
       <div class="niche-label">Pharmacy & Lab</div>
       <div class="niche-sub">Pharmacists, lab techs, radiology</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">🏋️</span>
       <div class="niche-label">Physical Therapy & Rehab</div>
       <div class="niche-sub">PTs, OTs, speech therapists</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">🔧</span>
       <div class="niche-label">Maintenance & Custodial</div>
       <div class="niche-sub">Custodians, HVAC, plumbers</div>
     </a>
-    <a href="https://www.etsy.com/shop/65929072" class="niche-card" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="niche-card" target="_blank" rel="noopener">
       <span class="niche-emoji">🎉</span>
       <div class="niche-label">All Professions →</div>
       <div class="niche-sub">Browse the full collection</div>
@@ -326,19 +354,58 @@
   <div class="cta-band">
     <h2>Ready to Find the Perfect Gift?</h2>
     <p>Browse hundreds of profession-specific designs. Something bold and funny for everyone who earns their coffee.</p>
-    <a href="https://www.etsy.com/shop/65929072" class="hero-cta" target="_blank" rel="noopener">
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" class="hero-cta" target="_blank" rel="noopener">
       🛒 Visit Our Etsy Shop
     </a>
   </div>
 </section>
 
+<section id="newsletter" style="padding:3rem 2rem;">
+  <div class="newsletter">
+    <div style="font-size:2rem;margin-bottom:0.75rem;">✉️</div>
+    <h2>New Drops & Exclusive Discounts</h2>
+    <p>We add new profession designs every week. Be first to know — and get 10% off your first order.</p>
+    <form class="nl-form" onsubmit="submitEmail(event)">
+      <input type="email" id="nl-email" placeholder="your@email.com" required autocomplete="email">
+      <button type="submit" id="nl-btn">Get 10% Off</button>
+    </form>
+    <p class="nl-note" id="nl-msg">No spam. Unsubscribe any time.</p>
+  </div>
+</section>
+
 <footer>
-  <p>&copy; 2026 Marx's Workshop. Made with ☕ and permanent revolution.</p>
+  <p>&copy; 2026 Marx's Workshop &mdash; Unique gifts for hardworking people.</p>
   <p style="margin-top:0.5rem;">
-    <a href="https://www.etsy.com/shop/65929072" target="_blank" rel="noopener">Etsy Shop</a> ·
-    <a href="https://marxsworkshop.carrd.co" target="_blank" rel="noopener">Website</a>
+    <a href="https://www.etsy.com/shop/MarxsWorkshop" target="_blank" rel="noopener">Etsy Shop</a> ·
+    <a href="mailto:marxsworkshop@gmail.com">Contact</a>
   </p>
 </footer>
+
+<script>
+async function submitEmail(e) {
+  e.preventDefault();
+  const email = document.getElementById('nl-email').value;
+  const btn = document.getElementById('nl-btn');
+  const msg = document.getElementById('nl-msg');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const r = await fetch('https://api.marxsworkshop.com/api/mailchimp/subscribe', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email, tags: ['website-signup'] })
+    });
+    if (r.ok) {
+      msg.textContent = '✅ Check your inbox for your discount code!';
+      msg.style.color = '#2d7a2d';
+      btn.textContent = 'Done!';
+      document.getElementById('nl-email').value = '';
+    } else { throw new Error(); }
+  } catch {
+    msg.textContent = 'Something went wrong — try again or email us directly.';
+    msg.style.color = '#c0392b';
+    btn.disabled = false; btn.textContent = 'Get 10% Off';
+  }
+}
+</script>
 
 </body>
 </html>
