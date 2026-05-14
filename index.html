@@ -389,7 +389,7 @@ async function submitEmail(e) {
   const msg = document.getElementById('nl-msg');
   btn.disabled = true; btn.textContent = '...';
   try {
-    const r = await fetch('https://api.marxsworkshop.com/api/mailchimp/subscribe', {
+    const r = await fetch('https://glamorous-musky-sherry.ngrok-free.app/api/mailchimp/subscribe', {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ email, tags: ['website-signup'] })
     });
